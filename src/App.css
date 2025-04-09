@@ -608,3 +608,97 @@ h2 {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-dark);
 }
+/* Add these styles to your existing App.css */
+
+/* Gallery Styles */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.gallery-item {
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 1px solid var(--glass-border);
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.gallery-item p {
+  padding: 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Experience Section */
+.experience-item {
+  margin-bottom: 2.5rem;
+}
+
+.experience-item:last-child {
+  margin-bottom: 0;
+}
+
+.experience-item h3 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.position {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.duration {
+  color: var(--text-dark);
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.experience-item ul {
+  margin-left: 1.5rem;
+}
+
+.experience-item li {
+  margin-bottom: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .gallery-item img {
+    height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  nav li {
+    margin: 0.25rem;
+  }
+}

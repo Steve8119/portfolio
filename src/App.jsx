@@ -2,14 +2,32 @@ import { useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
-import profileImage from './assets/profile.jpg'; // Import the image
+import profileImage from './assets/profile.jpg';
 import './App.css';
+
+// Sample gallery images (replace with your actual work images)
+import project1 from './assets/projects/project1.jpg';
+import project2 from './assets/projects/project2.jpg';
+import project3 from './assets/projects/project3.jpg';
+import project4 from './assets/projects/project4.jpg';
+import project5 from './assets/projects/project5.jpg';
+import project6 from './assets/projects/project6.jpg';
 
 function App() {
   const [activeSection, setActiveSection] = useState(null);
   const [showAboutPopup, setShowAboutPopup] = useState(false);
   const [typedSkills, setTypedSkills] = useState("");
   const skills = ["Graphic Designer", "Web Developer", "Social Media Manager", "Live Streaming Expert"];
+  
+  // Gallery images data
+  const galleryImages = [
+    { id: 1, src: project1, title: "Stylish Fashion Promo" },
+    { id: 2, src: project2, title: "Modern Elegant Furniture" },
+    { id: 3, src: project3, title: "Outdoor Design Experts" },
+    { id: 4, src: project4, title: "Three hybrid cars" },
+    { id: 5, src: project5, title: "Electrical sockets advertised" },
+    { id: 6, src: project6, title: "Hair salon promotion" }
+  ];
 
   // Typing animation effect
   useEffect(() => {
@@ -55,11 +73,12 @@ function App() {
           <li><button onClick={() => setActiveSection('about')}>About</button></li>
           <li><button onClick={() => setActiveSection('skills')}>Skills</button></li>
           <li><button onClick={() => setActiveSection('experience')}>Experience</button></li>
+          <li><button onClick={() => setActiveSection('gallery')}>Gallery</button></li>
           <li><button onClick={() => setActiveSection('contact')}>Contact</button></li>
         </ul>
       </nav>
 
-      {/* Main Content with Profile Image */}
+      {/* Main Content */}
       <main className="centered-content">
         <motion.div 
           className="profile-container"
@@ -68,11 +87,7 @@ function App() {
           transition={{ duration: 0.8 }}
         >
           <div className="profile-image">
-            <img 
-              src={profileImage} 
-              alt="Stephen Waithaka" 
-              className="profile-img"
-            />
+            <img src={profileImage} alt="Stephen Waithaka" className="profile-img" />
           </div>
         </motion.div>
 
@@ -98,7 +113,7 @@ function App() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
         >
-          <p>Creative professional with a degree in [Your Field] graduated December 2024. Currently serving as Graphic Designer and Social Media Manager at Ridgeways Pentecostal Church with expertise in live streaming.</p>
+          <p>ICT graduate with expertise in graphic design, web development and social media management. Founder of Kaatech, a creative studio specializing in digital solutions. Currently serving as Graphic Designer and Social Media Manager at Ridgeways Pentecostal Church.</p>
           <button onClick={() => setShowAboutPopup(true)}>Read More</button>
         </motion.div>
       </main>
@@ -123,24 +138,29 @@ function App() {
               <button className="close-btn" onClick={() => setActiveSection(null)}>
                 &times;
               </button>
+              
               {activeSection === 'about' && (
                 <div className="section-content">
                   <h2>About Me</h2>
-                  <p>I'm a creative professional with expertise in graphic design, web development, and social media management. Graduated in December 2024 with a degree in [Your Field].</p>
-                  <p>Currently working at Ridgeways Pentecostal Church where I handle all visual design, social media strategy, and live streaming of church events.</p>
+                  <p>I graduated with a degree in Information Communication Technology (ICT) and have since been working at Ridgeways Pentecostal Church where I handle graphic design, social media management, and live streaming of events.</p>
+                  <p>During my university years, I founded Kaatech - a creative studio specializing in web development, graphic design, and social media management. We've successfully delivered projects for various clients, helping them establish their digital presence.</p>
+                  <p>My passion lies in creating visually appealing designs while also building functional websites and managing online presence for organizations.</p>
                 </div>
               )}
+
               {activeSection === 'skills' && (
                 <div className="section-content">
                   <h2>My Skills</h2>
                   <ul>
-                    <li><strong>Graphic Design:</strong> Adobe Photoshop, Illustrator, InDesign</li>
-                    <li><strong>Web Development:</strong> HTML, CSS, JavaScript, React</li>
+                    <li><strong>Graphic Design:</strong> Adobe Photoshop, Illustrator, InDesign, Canva</li>
+                    <li><strong>Web Development:</strong> HTML, CSS, JavaScript, React, WordPress</li>
                     <li><strong>Social Media:</strong> Content strategy, analytics, community management</li>
                     <li><strong>Live Streaming:</strong> OBS Studio, live production, technical setup</li>
+                    <li><strong>UI/UX Design:</strong> Figma, Adobe XD, prototyping</li>
                   </ul>
                 </div>
               )}
+
               {activeSection === 'experience' && (
                 <div className="section-content">
                   <h2>Work Experience</h2>
@@ -152,17 +172,45 @@ function App() {
                       <li>Design all church publications and digital assets</li>
                       <li>Manage all social media platforms and engagement</li>
                       <li>Coordinate live streaming of weekly services and events</li>
+                      <li>Develop and maintain church website</li>
+                    </ul>
+                  </div>
+                  <div className="experience-item">
+                    <h3>Kaatech Creative Studio</h3>
+                    <p className="position">Founder & Creative Director</p>
+                    <p className="duration">2021 - Present</p>
+                    <ul>
+                      <li>Provide web development and graphic design services</li>
+                      <li>Manage social media accounts for clients</li>
+                      <li>Develop brand identities and marketing materials</li>
+                      <li>Train interns in digital design tools</li>
                     </ul>
                   </div>
                 </div>
               )}
+
+              {activeSection === 'gallery' && (
+                <div className="section-content">
+                  <h2>My Work Gallery</h2>
+                  <div className="gallery-grid">
+                    {galleryImages.map((image) => (
+                      <div key={image.id} className="gallery-item">
+                        <img src={image.src} alt={image.title} />
+                        <p>{image.title}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {activeSection === 'contact' && (
                 <div className="section-content">
                   <h2>Contact Me</h2>
                   <div className="contact-info">
-                    <p><strong>Email:</strong> stephen@example.com</p>
-                    <p><strong>Phone:</strong> +254 7XX XXX XXX</p>
-                    <p><strong>Social Media:</strong> @stephendesigns</p>
+                    <p><strong>Email:</strong> stevenwaithaka81192@gmail.com</p>
+                    <p><strong>Phone:</strong> +254 794 194 058</p>
+                    <p><strong>Social Media:</strong> @stephenwaithaka (All platforms)</p>
+                    <p><strong>Kaatech Studio:</strong> @kaatechstudio</p>
                   </div>
                 </div>
               )}
@@ -197,9 +245,9 @@ function App() {
                   <img src={profileImage} alt="Stephen Waithaka" className="profile-img" />
                 </div>
                 <div className="about-text">
-                  <p>I graduated in December 2024 with a degree in [Your Field] and have since been working at Ridgeways Pentecostal Church where I handle graphic design, social media management, and live streaming of events.</p>
-                  <p>My passion lies in creating visually appealing designs while also building functional websites and managing online presence for organizations.</p>
-                  <p>When I'm not working, I enjoy photography, videography, and exploring new technologies in the digital space.</p>
+                  <p>ICT graduate with extensive experience in digital design and development. Founded Kaatech during my university years to provide professional design services to clients while still studying.</p>
+                  <p>At Ridgeways Pentecostal Church, I oversee all visual communications including print materials, digital assets, and live streaming productions. My technical skills combined with creative vision help deliver impactful visual solutions.</p>
+                  <p>When I'm not working, I enjoy photography, videography, and exploring new technologies in the digital space. I'm passionate about mentoring young designers and sharing knowledge through workshops and tutorials.</p>
                 </div>
               </div>
             </motion.div>
